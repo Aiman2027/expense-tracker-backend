@@ -3,7 +3,7 @@ const router = express.Router();
 const Expense = require("../models/Expense");
 const { jwtAuthMiddleware } = require("../jwt");
 
-// Get all expenses of logged-in user
+
 router.get("/", jwtAuthMiddleware, async (req, res) => {
   try {
     const expenses = await Expense.find({ user: req.user.id }).sort({ date: -1 });
@@ -13,7 +13,7 @@ router.get("/", jwtAuthMiddleware, async (req, res) => {
   }
 });
 
-// Add expense
+
 router.post("/", jwtAuthMiddleware, async (req, res) => {
   try {
     const { title, amount, category, date, note } = req.body;
@@ -35,7 +35,7 @@ router.post("/", jwtAuthMiddleware, async (req, res) => {
   }
 });
 
-// Delete expense
+
 router.delete("/:id", jwtAuthMiddleware, async (req, res) => {
   try {
     const expense = await Expense.findOne({ _id: req.params.id, user: req.user.id });
